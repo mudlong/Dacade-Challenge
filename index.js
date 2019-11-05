@@ -119,7 +119,7 @@ window.addEventListener('load', async () => {
 
 
   for (let i = 1; i <= ProjectLength; i++) {
-    const persons = await callStatic('get_project_by_index', [i]);
+    const persons = await callStatic('getProject', [i]);
 
     console.log("for loop reached", "pushing to array")
 
@@ -154,31 +154,6 @@ window.addEventListener('load', async () => {
 
 
 
-$("#body").on("click", ".voteBtn", async function (event) {
-  $("#loading-bar-spinner").show();
-  console.log("Just Clicked The vote Button")
-
-
-
-  // const dataIndex = event.target.id
-  dataIndex = ProjectArray.length
-
-
-  await contractCall('vote', [dataIndex], 0)
-
-
-  
-  // $("#votes").load(window.location.href + " #votes");
-  location.reload(true)
-  
-  
-
-  
-
-
-  renderProject();
-  $("#loading-bar-spinner").hide();
-});
 
 $('#regBtn').click(async function(){
   $("#loading-bar-spinner").show();
