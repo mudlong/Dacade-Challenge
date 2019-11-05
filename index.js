@@ -78,7 +78,7 @@ function renderProject() {
 
 
   $('#body').html(rendered);
-  console.log("for loop reached")
+  console.log("rendering")
 }
 //Create a asynchronous read call for our smart contract
 async function callStatic(func, args) {
@@ -87,14 +87,13 @@ async function callStatic(func, args) {
     contractAddress
   });
   //Make a call to get data of smart contract func, with specefied arguments
-  console.log("Contract : ", contract)
+
   const calledGet = await contract.call(func, args, {
     callStatic: true
   }).catch(e => console.error(e));
-  //Make another call to decode the data received in first call
-  console.log("Called get found: ", calledGet)
+ 
   const decodedGet = await calledGet.decode().catch(e => console.error(e));
-  console.log("catching errors : ", decodedGet)
+
   return decodedGet;
 }
 
@@ -111,7 +110,7 @@ async function contractCall(func, args, value) {
 }
 
 window.addEventListener('load', async () => {
-  $("#loading-bar-spinner").show();
+  $("loading").show();
 
   client = await Ae.Aepp()
 
@@ -121,11 +120,7 @@ window.addEventListener('load', async () => {
   for (let i = 1; i <= ProjectLength; i++) {
     const persons = await callStatic('getProject', [i]);
 
-    console.log("for loop reached", "pushing to array")
-
-    console.log(persons.name)
-    console.log(persons.documentation)
-    console.log(persons.images)
+    console.log( "pushing to array")
 
 
     ProjectArray.push({
@@ -140,7 +135,7 @@ window.addEventListener('load', async () => {
     })
     
     renderProject();
-    $("#loading-bar-spinner").hide();
+    $("#loading").hide();
   }
 });
 
@@ -149,8 +144,8 @@ window.addEventListener('load', async () => {
 
 
 $('#regBtn').click(async function(){
-  $("#loading-bar-spinner").show();
-  console.log("Button Clicked")
+  $("#loading").show();
+  console.log("Register buttonw was clicked")
   const Project_name = ($('#Username').val());
   const Project_images = ($("#imagelink").val());
   const Project_description = ($("#projectdescription").val());
@@ -175,13 +170,13 @@ $('#regBtn').click(async function(){
   renderProject();
  
 
-  $("#loading-bar-spinner").hide();
+  $("#loading").hide();
   location.reload(true)
 
 });
 
 $('#body').on('click', '#tipbutton', async function(event){
-  $("#loading-bar-spinner").show();
+  $("#loading").show();
 
   dataIndex = ProjectArray.length
 
@@ -200,6 +195,6 @@ $('#body').on('click', '#tipbutton', async function(event){
   $('#tipValue').val('');
 
 
-  $("#loading-bar-spinner").hide();
+  $("#loading").hide();
 
 });
