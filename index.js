@@ -121,7 +121,7 @@ window.addEventListener('load', async () => {
   for (let i = 1; i <= ProjectLength; i++) {
     const persons = await callStatic('getProject', [i]);
 
-    console.log("for loop reached", "pushing to array")
+    console.log("rendering data")
 
     console.log(persons.name)
     console.log(persons.documentation)
