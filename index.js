@@ -190,10 +190,14 @@ $('#body').on('click', '#tipbutton', async function(event){
 
   
 
+  
+
 
   await contractCall('tipProject', [dataIndex, tipValue], 0)
 
   console.log("Tipped successfully")
+
+  $('#tipValue').val('');
 
 
   $("#loading-bar-spinner").hide();
