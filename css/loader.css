@@ -1,7 +1,12 @@
 svg {
 
-    display: block;
-    margin: 0 auto;
+    position: fixed;
+	left: 50px;
+	top: 50px;
+	width: 50%;
+	height: 50%;
+	z-index: 9999;
+  
     transform: translate(-50%, -50%) rotate(45deg);
 
 }
@@ -144,3 +149,8 @@ svg {
     }
 }
 
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+}
