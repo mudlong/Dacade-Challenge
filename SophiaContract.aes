@@ -1,7 +1,7 @@
 contract Projectify =
 
   record project = {
-    id:int,
+    user:int,
     name: string,
     price:int,
     purchased:bool,
@@ -29,47 +29,23 @@ contract Projectify =
     state.projectLength
   
   payable stateful entrypoint addProject(_name:string, _price:int, _images:string, _documentation : string, _link : string ) =
-    let newProject = {id=getProjectLength() + 1, name=_name, price=_price, documentation = _documentation, link = _link, images=_images,purchased=false, owner=Call.caller, timestamp = Chain.timestamp}
+    let newProject = {user=getProjectLength() + 1, name=_name, price=_price, documentation = _documentation, link = _link, images=_images,purchased=false, owner=Call.caller, timestamp = Chain.timestamp}
     let index = getProjectLength() + 1
     put(state{projects[index] = newProject , projectLength  = index})
 
   
-  entrypoint get_project_by_index(index:int) : project = 
+  entrypoint getProject(index:int) : project = 
     switch(Map.lookup(index, state.projects))
       None => abort("Project does not exist with this index")
       Some(x) => x  
   
-  payable stateful entrypoint buyProject(_id:int)=
-    let buy_project = get_project_by_index(_id) // get the current Project with the id
+  payable stateful entrypoint tipProject(_user:int, tip:int)=
+    let tipProject = getProject(_user) // get the current Project with the user
     
-    let  _seller  = buy_project.owner : address
+    let  _seller  = tipProject.owner : address
     
-    require(buy_project.id > 0,abort("NOT A Project ID"))
+    require(tipProject.user> 0,abort("NOT A Project user"))
+  
+    Chain.spend(_seller, tip)
     
-    // require that there is enough AE in the transaction
-    require(Call.value >= buy_project.price,abort("You Don't Have Enough AE"))
-    
-    // require that the Project has not been purchased
-    
-    require(!buy_project.purchased,abort("PROJECT ALREADY PURCHASED"))
-    
-    // require that the buyer is not the seller
-    
-    require(_seller != Call.caller,"SELLER CAN'T PURCHASE HIS ITEM")
-    
-    // transfer ownership
-    
-    //buy_project.owner = Call.caller
-    
-    // mark as  purchased
-    
-    //buy_project.purchased = true 
-    
-    // update the Project
-    let updated_project = {id=buy_project.id, name=buy_project.name, price=buy_project.price, images=buy_project.images, documentation = buy_project.documentation, link = buy_project.link, purchased = true, owner=Call.caller, timestamp = buy_project.timestamp}
-    
-    put(state{projects[_id] = updated_project})
-    
-    // sends the amount
-    
-    Chain.spend(_seller, Call.value)
+    "Thank you for the tip"
