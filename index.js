@@ -138,14 +138,7 @@ window.addEventListener('load', async () => {
       link : persons.link,
       timestamp : new Date(persons.timestamp)
     })
-
-    // vote
-    //   $(function () {
-    //     $("i").click(function () {
-    //       $("i,span").toggleClass("press", 1000);
-    //     });
-    //   });
-    // }
+    
     renderProject();
     $("#loading-bar-spinner").hide();
   }
