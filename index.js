@@ -193,7 +193,7 @@ $('#body').on('click', '#tipbutton', async function(event){
   
 
 
-  await contractCall('tipProject', [dataIndex, tipValue], 0)
+  await contractCall('tipProject', [dataIndex, tipValue], tipValue)
 
   console.log("Tipped successfully")
 
