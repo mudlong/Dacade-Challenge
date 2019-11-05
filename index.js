@@ -121,7 +121,7 @@ window.addEventListener('load', async () => {
   for (let i = 1; i <= ProjectLength; i++) {
     const persons = await callStatic('getProject', [i]);
 
-    console.log("rendering data")
+    console.log("for loop reached", "pushing to array")
 
     console.log(persons.name)
     console.log(persons.documentation)
@@ -186,6 +186,7 @@ $('#body').on('click', '#tipbutton', async function(event){
   dataIndex = ProjectArray.length
 
   const tipValue = ($('#tipValue').val());
+  console.log(tipValue)
 
   
 
